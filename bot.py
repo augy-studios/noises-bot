@@ -69,13 +69,6 @@ class NoisesBot(commands.Bot):
     async def on_ready(self):
         logger.info(f"Logged in as {self.user} (ID: {self.user.id})")
 
-    async def on_voice_server_update(self, data):
-        logger.info(f"Voice server update: endpoint={data.endpoint} guild={data.guild_id}")
-
-    async def on_voice_state_update(self, member, before, after):
-        if member == self.user:
-            logger.info(f"Bot voice state: before={before.channel} after={after.channel}")
-
     async def on_wavelink_node_ready(self, payload: wavelink.NodeReadyEventPayload):
         logger.info(f"Wavelink node '{payload.node.identifier}' is ready.")
 
