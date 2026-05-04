@@ -16,12 +16,7 @@ from database import (
 
 logger = logging.getLogger("noises.noise")
 
-# YouTube search queries used as audio sources (most reliable with Lavalink)
-NOISE_SOURCES = [
-    "ytsearch:white noise 10 hours",
-    "ytsearch:brown noise 10 hours",
-    "ytsearch:pink noise 10 hours",
-]
+WHITE_NOISE_URL = "https://cdn.augystudios.com/media/music/white-noise-1h.mp3"
 
 
 def db_to_lavalink_volume(db: int) -> int:
@@ -83,18 +78,15 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
 
         await self._apply_filters(player, volume_db, pitch_hz)
 
-        track = None
-        for query in NOISE_SOURCES:
-            try:
-                tracks = await wavelink.Playable.search(query)
-                if tracks:
-                    track = tracks[0] if isinstance(tracks, list) else tracks.tracks[0]
-                    break
-            except Exception as e:
-                logger.warning(f"[Guild {guild_id}] Failed to load '{query}': {e}")
+        try:
+            tracks = await wavelink.Playable.search(WHITE_NOISE_URL)
+            track = tracks[0] if isinstance(tracks, list) else tracks.tracks[0] if tracks else None
+        except Exception as e:
+            logger.error(f"[Guild {guild_id}] Failed to load white noise: {e}")
+            return
 
         if track is None:
-            logger.error(f"[Guild {guild_id}] Could not load any white noise source.")
+            logger.error(f"[Guild {guild_id}] Could not load white noise source.")
             return
 
         await player.play(track, volume=db_to_lavalink_volume(volume_db))
