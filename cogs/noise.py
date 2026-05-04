@@ -17,7 +17,7 @@ from database import (
 
 logger = logging.getLogger("noises.noise")
 
-WHITE_NOISE_URL = "file://" + os.path.abspath("white-noise.mp3")
+WHITE_NOISE_URL = "file://" + os.path.abspath("white-noise-1h.mp3")
 
 
 def db_to_lavalink_volume(db: int) -> int:
