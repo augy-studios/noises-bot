@@ -17,7 +17,7 @@ from database import (
 
 logger = logging.getLogger("noises.noise")
 
-WHITE_NOISE_URL = os.path.abspath("white-noise-1h.mp3")
+WHITE_NOISE_URL = "file://" + os.path.abspath("white-noise-1h.mp3")
 
 
 def db_to_lavalink_volume(db: int) -> int:
@@ -80,7 +80,7 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
         await self._apply_filters(player, volume_db, pitch_hz)
 
         try:
-            tracks = await wavelink.Playable.search(WHITE_NOISE_URL)
+            tracks = await wavelink.Playable.search(WHITE_NOISE_URL, source=None)
             if isinstance(tracks, list):
                 track = tracks[0] if tracks else None
             else:
