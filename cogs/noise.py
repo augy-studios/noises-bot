@@ -81,7 +81,10 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
 
         try:
             tracks = await wavelink.Playable.search(WHITE_NOISE_URL)
-            track = tracks[0] if isinstance(tracks, list) else tracks.tracks[0] if tracks else None
+            if isinstance(tracks, list):
+                track = tracks[0] if tracks else None
+            else:
+                track = tracks.tracks[0] if tracks and tracks.tracks else None
         except Exception as e:
             logger.error(f"[Guild {guild_id}] Failed to load white noise: {e}")
             return
