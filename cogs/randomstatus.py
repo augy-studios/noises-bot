@@ -59,7 +59,7 @@ class RandomStatusCog(commands.Cog, name="Random Status"):
             player = guild.voice_client
             if player and player.connected:
                 try:
-                    await player.set_channel_status("")
+                    await player.channel.edit(status="")
                 except Exception:
                     pass
 

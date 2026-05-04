@@ -166,7 +166,7 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
                 if statuses:
                     chosen = random.choice(statuses)
                     try:
-                        await player.set_channel_status(chosen)
+                        await player.channel.edit(status=chosen)
                         logger.debug(f"[{guild.name}] VC status set: {chosen}")
                     except Exception as e:
                         logger.warning(f"[{guild.name}] Could not set VC status: {e}")
