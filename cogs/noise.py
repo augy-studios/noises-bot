@@ -2,6 +2,7 @@
 
 import asyncio
 import logging
+import os
 import random
 from typing import Optional
 
@@ -16,7 +17,7 @@ from database import (
 
 logger = logging.getLogger("noises.noise")
 
-WHITE_NOISE_URL = "https://cdn.augystudios.com/media/music/white-noise-1h.mp3"
+WHITE_NOISE_URL = "file://" + os.path.abspath("white-noise.mp3")
 
 
 def db_to_lavalink_volume(db: int) -> int:
