@@ -16,15 +16,11 @@ from database import (
 
 logger = logging.getLogger("noises.noise")
 
-# 1-hour public domain white noise stream (Internet Archive)
-WHITE_NOISE_URL = (
-    "https://archive.org/download/whitenoise_20210101/white-noise-1hour.mp3"
-)
-
-# fallback URLs
-FALLBACK_URLS = [
-    "https://archive.org/download/brown-noise/brown-noise.mp3",
-    "https://archive.org/download/pink-noise-1hour/pink-noise.mp3",
+# YouTube search queries used as audio sources (most reliable with Lavalink)
+NOISE_SOURCES = [
+    "ytsearch:white noise 10 hours",
+    "ytsearch:brown noise 10 hours",
+    "ytsearch:pink noise 10 hours",
 ]
 
 
@@ -87,16 +83,15 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
 
         await self._apply_filters(player, volume_db, pitch_hz)
 
-        urls = [WHITE_NOISE_URL] + FALLBACK_URLS
         track = None
-        for url in urls:
+        for query in NOISE_SOURCES:
             try:
-                tracks = await wavelink.Playable.search(url)
+                tracks = await wavelink.Playable.search(query)
                 if tracks:
                     track = tracks[0] if isinstance(tracks, list) else tracks.tracks[0]
                     break
             except Exception as e:
-                logger.warning(f"[Guild {guild_id}] Failed to load {url}: {e}")
+                logger.warning(f"[Guild {guild_id}] Failed to load '{query}': {e}")
 
         if track is None:
             logger.error(f"[Guild {guild_id}] Could not load any white noise source.")
