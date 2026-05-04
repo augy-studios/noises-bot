@@ -69,8 +69,8 @@ class NoisesBot(commands.Bot):
     async def on_ready(self):
         logger.info(f"Logged in as {self.user} (ID: {self.user.id})")
 
-    async def on_voice_server_update(self, data: dict):
-        logger.info(f"Voice server update: endpoint={data.get('endpoint')} guild={data.get('guild_id')}")
+    async def on_voice_server_update(self, data):
+        logger.info(f"Voice server update: endpoint={data.endpoint} guild={data.guild_id}")
 
     async def on_voice_state_update(self, member, before, after):
         if member == self.user:
