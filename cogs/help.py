@@ -189,7 +189,7 @@ class HelpCog(commands.Cog, name="Help"):
         view = HelpPaginatorView(interaction)
         view.next_btn.disabled = len(COMMANDS_DATA) <= 1
         embed = build_page_embed(0, len(COMMANDS_DATA))
-        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=False)
 
 
 async def setup(bot: commands.Bot):
