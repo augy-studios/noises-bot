@@ -49,7 +49,7 @@ def init_db():
         # seed default global statuses
         default_statuses = [
             "🌊 Shh... the ocean is thinking",
-            "📺 Static. Just vibes.",
+            "📺 Static. Just chill.",
             "☁️ Cloud computing (literally)",
             "🧠 Buffering your brain cells",
             "🌫️ Fog machine: engaged",
@@ -67,7 +67,7 @@ def init_db():
             "🛸 Alien frequencies detected",
             "⏳ Time: suspended",
             "💤 zzzz (in audio format)",
-            "🌬️ Just wind. Don't worry about it.",
+            "🌬️ Just the wind. Don't worry about it.",
         ]
         conn.executemany(
             "INSERT OR IGNORE INTO global_statuses (text) VALUES (?)",
