@@ -26,7 +26,7 @@ class VolumeCog(commands.Cog, name="Volume"):
 
     @volume_group.command(name="set", description="Set the white noise volume for this server (50–85 dB).")
     @app_commands.describe(level="Volume level in decibels (50–85)")
-    @app_commands.checks.has_permissions(manage_guild=True)
+    @app_commands.checks.has_permissions(manage_channels=True)
     async def volume_set(self, interaction: discord.Interaction, level: app_commands.Range[int, 50, 85]):
         set_volume(interaction.guild_id, level)
 

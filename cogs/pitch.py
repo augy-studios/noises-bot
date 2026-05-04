@@ -26,7 +26,7 @@ class PitchCog(commands.Cog, name="Pitch"):
 
     @pitch_group.command(name="set", description="Set the white noise pitch for this server (20–4000 Hz).")
     @app_commands.describe(frequency="Pitch frequency in hertz (20–4000)")
-    @app_commands.checks.has_permissions(manage_guild=True)
+    @app_commands.checks.has_permissions(manage_channels=True)
     async def pitch_set(self, interaction: discord.Interaction, frequency: app_commands.Range[int, 20, 4000]):
         set_pitch(interaction.guild_id, frequency)
 

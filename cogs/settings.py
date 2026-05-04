@@ -56,6 +56,7 @@ class SettingsCog(commands.Cog, name="Settings"):
     async def settings_setchannel(
         self, interaction: discord.Interaction, channel: discord.VoiceChannel
     ):
+        await interaction.response.defer(ephemeral=True)
         set_noise_channel(interaction.guild_id, channel.id)
 
         embed = discord.Embed(
@@ -73,7 +74,7 @@ class SettingsCog(commands.Cog, name="Settings"):
             await noise_cog.start_noise_for_guild(interaction.guild_id)
             embed.set_footer(text="Reconnected to the new channel.")
 
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.followup.send(embed=embed, ephemeral=True)
 
     @settings_group.command(
         name="start",
