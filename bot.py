@@ -28,6 +28,7 @@ COGS = [
     "cogs.randomstatus",
     "cogs.help",
     "cogs.noise",
+    "cogs.botinfo",
 ]
 
 
@@ -67,6 +68,7 @@ class NoisesBot(commands.Bot):
         self.update_status.start()
 
     async def on_ready(self):
+        self.start_time = discord.utils.utcnow()
         logger.info(f"Logged in as {self.user} (ID: {self.user.id})")
 
     async def on_wavelink_node_ready(self, payload: wavelink.NodeReadyEventPayload):
