@@ -87,7 +87,7 @@ class NoisesBot(commands.Bot):
         try:
             guild_count = len(self.guilds)
             activity = discord.CustomActivity(
-                name=f"Staying silently in {guild_count} guild{'s' if guild_count != 1 else ''}",
+                name=f"Staying silent in {guild_count} guild{'s' if guild_count != 1 else ''}",
             )
             await self.change_presence(activity=activity)
         except Exception as e:
