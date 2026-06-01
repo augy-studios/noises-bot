@@ -37,7 +37,7 @@ class SettingsCog(commands.Cog, name="Settings"):
 
         guild = interaction.guild
         player = guild.voice_client
-        status = "🟢 Active" if (player and player.playing) else "🔴 Inactive"
+        status = "🟢 Active" if (player and player.connected) else "🔴 Inactive"
         embed.add_field(name="📡 Connection Status", value=status, inline=True)
 
         embed.set_footer(text="Use /randomstatus to manage VC status messages.")
