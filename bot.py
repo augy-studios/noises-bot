@@ -22,8 +22,6 @@ logging.basicConfig(
 logger = logging.getLogger("noises")
 
 COGS = [
-    "cogs.volume",
-    "cogs.pitch",
     "cogs.settings",
     "cogs.randomstatus",
     "cogs.help",
@@ -85,12 +83,11 @@ class NoisesBot(commands.Bot):
 
     @tasks.loop(minutes=5)
     async def update_status(self):
-        """Update playing status with guild count."""
+        """Update custom activity with VC count."""
         try:
             guild_count = len(self.guilds)
-            activity = discord.Activity(
-                type=discord.ActivityType.listening,
-                name=f"{guild_count} guild{'s' if guild_count != 1 else ''}",
+            activity = discord.CustomActivity(
+                name=f"Staying in the VCs of {guild_count} guild{'s' if guild_count != 1 else ''}",
             )
             await self.change_presence(activity=activity)
         except Exception as e:

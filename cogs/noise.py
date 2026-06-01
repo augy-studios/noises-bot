@@ -20,15 +20,6 @@ logger = logging.getLogger("noises.noise")
 WHITE_NOISE_URL = "file://" + os.path.abspath("white-noise-1h.mp3")
 
 
-def db_to_lavalink_volume(db: int) -> int:
-    """Convert dB (50–85) to Lavalink volume (0–1000). 70dB → 100."""
-    import math
-    return max(1, min(1000, round(100 * (10 ** ((db - 70) / 20)))))
-
-
-def hz_to_timescale_pitch(hz: int) -> float:
-    """Map Hz (20–4000) to Lavalink timescale pitch multiplier. 500Hz → 1.0."""
-    return max(0.1, min(5.0, hz / 500.0))
 
 
 class NoiseCog(commands.Cog, name="NoiseCog"):
@@ -61,23 +52,9 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
                 return None
         return player
 
-    async def _apply_filters(self, player: wavelink.Player, volume_db: int, pitch_hz: int):
-        """Apply volume and pitch filters."""
-        lava_vol = db_to_lavalink_volume(volume_db)
-        pitch_mul = hz_to_timescale_pitch(pitch_hz)
-
-        filters = wavelink.Filters()
-        filters.timescale.set(pitch=pitch_mul, speed=1.0, rate=1.0)
-        await player.set_filters(filters, seek=False)
-        await player.set_volume(lava_vol)
-
     async def _play_noise(self, player: wavelink.Player, guild_id: int):
-        """Fetch and play white noise."""
-        settings = get_guild_settings(guild_id)
-        volume_db = settings.get("volume", 70)
-        pitch_hz = settings.get("pitch", 500)
-
-        await self._apply_filters(player, volume_db, pitch_hz)
+        """Fetch and play silence (white noise at volume 0)."""
+        await player.set_volume(0)
 
         try:
             tracks = await wavelink.Playable.search(WHITE_NOISE_URL, source=None)
@@ -86,15 +63,15 @@ class NoiseCog(commands.Cog, name="NoiseCog"):
             else:
                 track = tracks.tracks[0] if tracks and tracks.tracks else None
         except Exception as e:
-            logger.error(f"[Guild {guild_id}] Failed to load white noise: {e}")
+            logger.error(f"[Guild {guild_id}] Failed to load track: {e}")
             return
 
         if track is None:
-            logger.error(f"[Guild {guild_id}] Could not load white noise source.")
+            logger.error(f"[Guild {guild_id}] Could not load track source.")
             return
 
-        await player.play(track, volume=db_to_lavalink_volume(volume_db))
-        logger.info(f"[Guild {guild_id}] Now playing white noise: {track.title}")
+        await player.play(track, volume=0)
+        logger.info(f"[Guild {guild_id}] Now playing silently.")
 
     async def restart_noise(self, guild_id: int, player: wavelink.Player):
         """Restart noise when a track ends."""

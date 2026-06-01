@@ -17,8 +17,6 @@ class SettingsCog(commands.Cog, name="Settings"):
     async def settings_view(self, interaction: discord.Interaction):
         settings = get_guild_settings(interaction.guild_id)
 
-        volume = settings.get("volume", 70)
-        pitch = settings.get("pitch", 500)
         channel_id = settings.get("noise_channel")
         random_status = settings.get("random_status", 1)
 
@@ -30,9 +28,7 @@ class SettingsCog(commands.Cog, name="Settings"):
             title="⚙️ Server Settings",
             colour=discord.Colour.from_str("#ccffcc"),
         )
-        embed.add_field(name="🔊 Volume", value=f"{volume} dB", inline=True)
-        embed.add_field(name="🎵 Pitch", value=f"{pitch} Hz", inline=True)
-        embed.add_field(name="📺 Noise Channel", value=channel_mention, inline=False)
+        embed.add_field(name="📺 VC Channel", value=channel_mention, inline=False)
         embed.add_field(
             name="🎲 Random VC Status",
             value="✅ Enabled" if random_status else "❌ Disabled",
@@ -42,16 +38,16 @@ class SettingsCog(commands.Cog, name="Settings"):
         guild = interaction.guild
         player = guild.voice_client
         status = "🟢 Active" if (player and player.playing) else "🔴 Inactive"
-        embed.add_field(name="📡 Stream Status", value=status, inline=True)
+        embed.add_field(name="📡 Connection Status", value=status, inline=True)
 
-        embed.set_footer(text="Use /volume, /pitch, /randomstatus to change individual settings.")
+        embed.set_footer(text="Use /randomstatus to manage VC status messages.")
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @settings_group.command(
         name="setchannel",
-        description="Set the voice channel for white noise playback.",
+        description="Set the voice channel for Noiseless to occupy.",
     )
-    @app_commands.describe(channel="The voice channel to stream white noise into")
+    @app_commands.describe(channel="The voice channel for Noiseless to join")
     @app_commands.checks.has_permissions(manage_channels=True)
     async def settings_setchannel(
         self, interaction: discord.Interaction, channel: discord.VoiceChannel
@@ -60,8 +56,8 @@ class SettingsCog(commands.Cog, name="Settings"):
         set_noise_channel(interaction.guild_id, channel.id)
 
         embed = discord.Embed(
-            title="📺 Noise Channel Updated",
-            description=f"White noise will stream in {channel.mention}.",
+            title="📺 Channel Updated",
+            description=f"Noiseless will now occupy {channel.mention}.",
             colour=discord.Colour.from_str("#ccffcc"),
         )
 
@@ -78,7 +74,7 @@ class SettingsCog(commands.Cog, name="Settings"):
 
     @settings_group.command(
         name="start",
-        description="Manually start the white noise stream for this server.",
+        description="Manually start Noiseless in the configured channel.",
     )
     @app_commands.checks.has_permissions(manage_channels=True)
     async def settings_start(self, interaction: discord.Interaction):
@@ -89,8 +85,8 @@ class SettingsCog(commands.Cog, name="Settings"):
             if success:
                 await interaction.followup.send(
                     embed=discord.Embed(
-                        title="▶️ Stream Started",
-                        description="White noise is now playing.",
+                        title="▶️ Started",
+                        description="Noiseless is now in the channel.",
                         colour=discord.Colour.from_str("#ccffcc"),
                     ),
                     ephemeral=True,
@@ -105,7 +101,7 @@ class SettingsCog(commands.Cog, name="Settings"):
 
     @settings_group.command(
         name="stop",
-        description="Manually stop the white noise stream for this server.",
+        description="Manually stop Noiseless and disconnect from VC.",
     )
     @app_commands.checks.has_permissions(manage_channels=True)
     async def settings_stop(self, interaction: discord.Interaction):
@@ -113,8 +109,8 @@ class SettingsCog(commands.Cog, name="Settings"):
         if noise_cog:
             await noise_cog.stop_noise_for_guild(interaction.guild_id)
         embed = discord.Embed(
-            title="⏹️ Stream Stopped",
-            description="White noise has been stopped.",
+            title="⏹️ Stopped",
+            description="Noiseless has disconnected.",
             colour=discord.Colour.from_str("#ccffcc"),
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)

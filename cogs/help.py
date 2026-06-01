@@ -4,40 +4,6 @@ from discord.ext import commands
 
 COMMANDS_DATA = [
     {
-        "category": "🔊 Volume",
-        "commands": [
-            {
-                "name": "/volume view",
-                "description": "View the current volume for this server.",
-                "usage": "/volume view",
-                "permissions": "Everyone",
-            },
-            {
-                "name": "/volume set [level]",
-                "description": "Set the volume (50–85 dB). Default: 70 dB.",
-                "usage": "/volume set level:75",
-                "permissions": "Manage Server",
-            },
-        ],
-    },
-    {
-        "category": "🎵 Pitch",
-        "commands": [
-            {
-                "name": "/pitch view",
-                "description": "View the current pitch for this server.",
-                "usage": "/pitch view",
-                "permissions": "Everyone",
-            },
-            {
-                "name": "/pitch set [frequency]",
-                "description": "Set the pitch (20–4000 Hz). Default: 500 Hz.",
-                "usage": "/pitch set frequency:800",
-                "permissions": "Manage Server",
-            },
-        ],
-    },
-    {
         "category": "⚙️ Settings",
         "commands": [
             {
@@ -48,19 +14,19 @@ COMMANDS_DATA = [
             },
             {
                 "name": "/settings setchannel [channel]",
-                "description": "Set the voice channel for white noise playback.",
+                "description": "Set the voice channel for Noiseless to occupy.",
                 "usage": "/settings setchannel channel:#chill-vc",
                 "permissions": "Manage Server",
             },
             {
                 "name": "/settings start",
-                "description": "Manually start the white noise stream.",
+                "description": "Manually start Noiseless in the configured channel.",
                 "usage": "/settings start",
                 "permissions": "Manage Server",
             },
             {
                 "name": "/settings stop",
-                "description": "Manually stop the white noise stream.",
+                "description": "Manually stop Noiseless and disconnect from VC.",
                 "usage": "/settings stop",
                 "permissions": "Manage Server",
             },
@@ -140,7 +106,7 @@ def build_page_embed(page_index: int, total_pages: int) -> discord.Embed:
             f"**Permissions:** {cmd['permissions']}"
         )
         embed.add_field(name=cmd["name"], value=value, inline=False)
-    embed.set_footer(text=f"Page {page_index + 1}/{total_pages} — White noise, 24/7.")
+    embed.set_footer(text=f"Page {page_index + 1}/{total_pages} — Silence, 24/7.")
     return embed
 
 
