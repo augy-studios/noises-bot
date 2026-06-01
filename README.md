@@ -129,23 +129,23 @@ tmux kill-session -t lavalink
 | Command | Description | Permissions |
 | --- | --- | --- |
 | `/volume view` | View current volume (dB) | Everyone |
-| `/volume set [50–85]` | Set volume in dB | Manage Server |
+| `/volume set [50–85]` | Set volume in dB | Manage Channels |
 
 ### 🎵 Pitch
 
 | Command | Description | Permissions |
 | --- | --- | --- |
 | `/pitch view` | View current pitch (Hz) | Everyone |
-| `/pitch set [20–4000]` | Set pitch in Hz | Manage Server |
+| `/pitch set [20–4000]` | Set pitch in Hz | Manage Channels |
 
 ### ⚙️ Settings
 
 | Command | Description | Permissions |
 | --- | --- | --- |
 | `/settings view` | View all server settings | Everyone |
-| `/settings setchannel [#vc]` | Set the voice channel to stream in | Manage Server |
-| `/settings start` | Manually start the noise stream | Manage Server |
-| `/settings stop` | Manually stop the noise stream | Manage Server |
+| `/settings setchannel [#vc]` | Set the voice channel to stream in | Manage Channels |
+| `/settings start` | Manually start the noise stream | Manage Channels |
+| `/settings stop` | Manually stop the noise stream | Manage Channels |
 
 ### 🎲 Random Status
 
