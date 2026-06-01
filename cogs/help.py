@@ -106,7 +106,7 @@ def build_page_embed(page_index: int, total_pages: int) -> discord.Embed:
             f"**Permissions:** {cmd['permissions']}"
         )
         embed.add_field(name=cmd["name"], value=value, inline=False)
-    embed.set_footer(text=f"Page {page_index + 1}/{total_pages} — Silence, 24/7.")
+    embed.set_footer(text=f"Page {page_index + 1}/{total_pages} - Silence, 24/7.")
     return embed
 
 

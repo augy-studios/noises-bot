@@ -108,7 +108,7 @@ class RandomStatusCog(commands.Cog, name="Random Status"):
         else:
             embed1.add_field(
                 name=f"🏠 {interaction.guild.name}'s Custom Statuses",
-                value="*None yet — use /randomstatus add to add some!*",
+                value="*None yet - use /randomstatus add to add some!*",
                 inline=False,
             )
 

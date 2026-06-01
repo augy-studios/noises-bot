@@ -1,4 +1,4 @@
-"""NoiseCog — Lavalink voice connections and white noise playback per guild."""
+"""NoiseCog - Lavalink voice connections and white noise playback per guild."""
 
 import asyncio
 import logging

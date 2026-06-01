@@ -1,17 +1,17 @@
 # 🌊 Noises
 
-A Discord bot that delivers **24/7 white noise** to a voice channel of your choosing — even when nobody's in it. Built with `discord.py` and **Lavalink** for robust, persistent voice sessions.
+A Discord bot that delivers **24/7 white noise** to a voice channel of your choosing - even when nobody's in it. Built with `discord.py` and **Lavalink** for robust, persistent voice sessions.
 
 ---
 
 ## Features
 
-- **24/7 white noise streaming** via Lavalink — stays in VC even with no members
+- **24/7 white noise streaming** via Lavalink - stays in VC even with no members
 - **Per-guild volume control** (50–85 dB)
 - **Per-guild pitch control** (20–4000 Hz) via Lavalink timescale filter
-- **Automatic reconnect loop** — bot re-joins and resumes if disconnected
+- **Automatic reconnect loop** - bot re-joins and resumes if disconnected
 - **Random VC status messages** that rotate every 10 minutes (20 built-in + per-guild custom)
-- **Global status management** — admins can disable specific global statuses per server
+- **Global status management** - admins can disable specific global statuses per server
 - **Paginated `/help`** command
 - **Playing tag** showing `Listening to X guilds`
 - SQLite database for all settings (no external DB required)
@@ -172,7 +172,7 @@ tmux kill-session -t lavalink
 1. **Lavalink** handles the actual audio streaming. The bot connects to your self-hosted Lavalink node on startup.
 2. When a noise channel is set (via `/settings setchannel`), the **reconnect loop** (runs every 2 minutes) ensures the bot is always in that VC and always playing.
 3. **Volume** is applied via Lavalink's internal volume multiplier (mapped from dB).
-4. **Pitch** is applied via Lavalink's **timescale filter** — frequency is mapped relative to 500 Hz (default = 1.0x pitch multiplier).
+4. **Pitch** is applied via Lavalink's **timescale filter** - frequency is mapped relative to 500 Hz (default = 1.0x pitch multiplier).
 5. **Random VC statuses** rotate every 10 minutes using `player.set_channel_status()` from the wavelink API.
 6. The **playing tag** (`Listening to X guilds`) updates every 5 minutes.
 

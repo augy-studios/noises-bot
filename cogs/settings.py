@@ -21,7 +21,7 @@ class SettingsCog(commands.Cog, name="Settings"):
         random_status = settings.get("random_status", 1)
 
         channel_mention = (
-            f"<#{channel_id}>" if channel_id else "*Not set — will use first VC found*"
+            f"<#{channel_id}>" if channel_id else "*Not set - will use first VC found*"
         )
 
         embed = discord.Embed(
