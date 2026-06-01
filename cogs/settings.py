@@ -28,7 +28,7 @@ class SettingsCog(commands.Cog, name="Settings"):
             title="⚙️ Server Settings",
             colour=discord.Colour.from_str("#ccffcc"),
         )
-        embed.add_field(name="📺 VC Channel", value=channel_mention, inline=False)
+        embed.add_field(name="📺 Voice Channel", value=channel_mention, inline=False)
         embed.add_field(
             name="🎲 Random VC Status",
             value="✅ Enabled" if random_status else "❌ Disabled",
